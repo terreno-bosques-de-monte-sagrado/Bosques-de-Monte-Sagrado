@@ -3,13 +3,40 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Bosques de Monte Sagrado – Terreno en Venta</title>
-  <meta name="description" content="Terreno exclusivo de 804 m² en el Condominio Bosques de Monte Sagrado, un proyecto de alto nivel en el límite de Concón y Quintero.">
-  <meta name="keywords" content="terreno, venta, condominio, Bosques de Monte Sagrado, Concón, Quintero, inversión inmobiliaria, parcela">
+  <script>document.documentElement.className += ' js';</script>
+
+  <title>Bosques de Monte Sagrado – Terreno de 804 m² en Venta | Concón</title>
+  <meta name="description" content="Terreno exclusivo de 804 m² en el Condominio Bosques de Monte Sagrado, un proyecto de alto nivel en el límite de Concón y Quintero. 1.950 UF.">
+  <link rel="canonical" href="https://bvvnjmn.github.io/Bosques-de-Monte-Sagrado/">
+  <meta name="theme-color" content="#222222">
+
+  <!-- Vista previa al compartir (WhatsApp, Facebook, X) -->
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_CL">
+  <meta property="og:site_name" content="Bosques de Monte Sagrado">
+  <meta property="og:url" content="https://bvvnjmn.github.io/Bosques-de-Monte-Sagrado/">
+  <meta property="og:title" content="Terreno 804 m² en Condominio Bosques de Monte Sagrado">
+  <meta property="og:description" content="Barrio privado en el límite de Concón y Quintero, a 4 minutos de la Rotonda de Concón. Acceso controlado, calles asfaltadas, servicios subterráneos. 1.950 UF.">
+  <meta property="og:image" content="https://i.imgur.com/IpxsSDP.jpeg">
+  <meta property="og:image:alt" content="Vista del condominio Bosques de Monte Sagrado">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Terreno 804 m² en Condominio Bosques de Monte Sagrado">
+  <meta name="twitter:description" content="Barrio privado en el límite de Concón y Quintero. 1.950 UF.">
+  <meta name="twitter:image" content="https://i.imgur.com/IpxsSDP.jpeg">
+
   <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/6/6b/Map_marker_icon_%E2%80%93_Nicolas_Mollet_%E2%80%93_House_%E2%80%93_Real_Estate_%E2%80%93_White.png" type="image/png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap">
+  <link rel="preload" as="image" href="https://i.imgur.com/IpxsSDP.jpeg" fetchpriority="high">
 
   <style>
     /* Base */
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       font-family: 'Poppins', Arial, sans-serif;
       margin: 0;
@@ -17,7 +44,6 @@
       background-color: #f5f5f5;
       color: #333;
       line-height: 1.6;
-      scroll-behavior: smooth;
     }
 
     /* Encabezado */
@@ -27,6 +53,7 @@
       color: #fff;
       text-align: center;
       height: 100vh;
+      height: 100svh;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -63,12 +90,17 @@
       padding: 60px 20px;
       max-width: 1100px;
       margin: auto;
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.8s ease;
     }
 
-    section.visible {
+    /* El contenido parte visible; solo con JS se anima al hacer scroll,
+       para que la página siga siendo legible si el script falla. */
+    .js section {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .js section.visible {
       opacity: 1;
       transform: translateY(0);
     }
@@ -129,6 +161,20 @@
       gap: 15px;
     }
 
+    .gallery button {
+      padding: 0;
+      border: none;
+      background: none;
+      cursor: zoom-in;
+      display: block;
+      border-radius: 10px;
+    }
+
+    .gallery button:focus-visible {
+      outline: 3px solid #222;
+      outline-offset: 3px;
+    }
+
     .gallery img {
       width: 100%;
       height: 250px;
@@ -136,10 +182,67 @@
       border-radius: 10px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.2);
       transition: transform 0.3s ease;
+      background-color: #e2e2e2;
+      display: block;
     }
 
-    .gallery img:hover {
+    .gallery button:hover img,
+    .gallery button:focus-visible img {
       transform: scale(1.03);
+    }
+
+    /* Visor de fotos */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.92);
+      z-index: 2000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lightbox.open {
+      display: flex;
+    }
+
+    .lightbox img {
+      max-width: 92vw;
+      max-height: 86vh;
+      object-fit: contain;
+      border-radius: 6px;
+    }
+
+    .lightbox button {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.14);
+      color: #fff;
+      border: none;
+      border-radius: 50%;
+      width: 48px;
+      height: 48px;
+      font-size: 1.6em;
+      line-height: 1;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    .lightbox button:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    .lb-close { top: 20px; right: 20px; }
+    .lb-prev  { left: 20px; }
+    .lb-next  { right: 20px; }
+
+    .lb-counter {
+      position: absolute;
+      bottom: 20px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      color: #eee;
+      font-size: 0.95em;
     }
 
     /* Mapa */
@@ -150,43 +253,7 @@
       border-radius: 8px;
     }
 
-    /* Contacto */
-    .contact {
-      background: #222;
-      color: #fff;
-      text-align: center;
-      padding: 80px 20px;
-      position: relative;
-    }
-
-    .contact h2::after {
-      background: #fff;
-    }
-
-    .contact p {
-      font-size: 1.1em;
-      color: #ccc;
-      margin-bottom: 20px;
-    }
-
-    .contact a {
-      display: inline-block;
-      margin: 10px;
-      padding: 10px 20px;
-      background: #f5f5f5;
-      color: #111;
-      text-decoration: none;
-      border-radius: 6px;
-      font-weight: 600;
-      transition: all 0.3s;
-    }
-
-    .contact a:hover {
-      background: #ddd;
-      color: #000;
-    }
-
-/* ===== BOTONES FLOTANTES ===== */
+    /* ===== BOTONES FLOTANTES ===== */
     .whatsapp-float {
       position: fixed;
       width: 55px;
@@ -222,6 +289,7 @@
       left: 25px;
       background-color: #444;
       color: white;
+      border: none;
       border-radius: 50%;
       display: flex;
       align-items: center;
@@ -242,97 +310,204 @@
       opacity: 1;
       visibility: visible;
     }
-
-    
     .scroll-top:hover {
       background-color: #222;
       transform: scale(1.05);
     }
 
-    /* ===== RESPONSIVE FIX ===== */
-@media (max-width: 768px) {
+    /* Contacto */
+    #contacto {
+      background: linear-gradient(180deg, #f1f1f1 0%, #e9e9e9 100%);
+      padding: 90px 20px;
+      max-width: none;
+    }
 
-  header {
-    height: 80vh;
-    padding: 0 10px;
-  }
+    .contact-container {
+      max-width: 750px;
+      margin: auto;
+      background: #fff;
+      padding: 60px;
+      border-radius: 14px;
+      box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+    }
 
-  header h1 {
-    font-size: 2.2em;
-  }
+    #contacto h2 {
+      text-align: left;
+      color: #333;
+      margin-bottom: 20px;
+      padding-bottom: 8px;
+    }
 
-  header p {
-    font-size: 1em;
-    padding: 8px 14px;
-  }
+    .contact-container .intro {
+      color: #555;
+      margin-bottom: 40px;
+      line-height: 1.6;
+      text-align: center;
+      font-size: 1.05em;
+    }
 
-  section {
-    padding: 40px 15px;
-  }
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
 
-  /* --- Galería adaptable --- */
-  .gallery {
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 10px;
-  }
+    .form-group label {
+      font-weight: 500;
+      color: #333;
+      margin-bottom: 6px;
+      display: block;
+    }
 
-  .gallery img {
-    height: 180px;
-    border-radius: 8px;
-  }
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      padding: 12px;
+      font-family: inherit;
+      font-size: 1em;
+      color: #333;
+      background: #fafafa;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
 
-  /* --- Características del proyecto --- */
-  #detalles .features {
-    grid-template-columns: 1fr;
-    gap: 10px;
-  }
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: #444;
+      box-shadow: 0 0 6px rgba(0,0,0,0.1);
+      outline: none;
+    }
 
-  #detalles .features .columna p {
-    font-size: 0.95em;
-  }
+    button[type="submit"] {
+      background-color: #333;
+      color: #fff;
+      border: none;
+      padding: 15px 32px;
+      font-family: inherit;
+      font-size: 1em;
+      border-radius: 10px;
+      cursor: pointer;
+      align-self: center;
+      transition: all 0.3s ease;
+      font-weight: 600;
+    }
 
-  /* --- Contacto --- */
-  .contact-container {
-    padding: 35px 20px;
-  }
+    button[type="submit"]:hover {
+      background-color: #111;
+      transform: scale(1.04);
+    }
 
-  button[type="submit"] {
-    width: 100%;
-  }
+    /* Trampa antispam: invisible para personas, tentadora para bots */
+    .form-honey {
+      position: absolute;
+      left: -9999px;
+      opacity: 0;
+    }
 
-  /* --- Mapa --- */
-  iframe {
-    height: 300px;
-  }
+    .contact-info {
+      margin-top: 50px;
+      border-top: 1px solid #ddd;
+      padding-top: 25px;
+      color: #444;
+      font-size: 0.95em;
+      line-height: 1.7;
+    }
 
-  /* --- Botones flotantes --- */
-  .whatsapp-float {
-    width: 50px;
-    height: 50px;
-    bottom: 15px;
-    right: 15px;
-  }
+    .contact-info p {
+      margin: 8px 0;
+      text-align: center;
+    }
 
-  .scroll-top {
-    width: 45px;
-    height: 45px;
-    bottom: 15px;
-    left: 15px;
-  }
-}
+    .contact-info a {
+      color: #222;
+    }
 
-@media (max-width: 480px) {
-  header h1 {
-    font-size: 1.8em;
-  }
-  header p {
-    font-size: 0.9em;
-  }
-  .gallery img {
-    height: 150px;
-  }
-}
+    footer {
+      text-align: center;
+      padding: 30px 10px;
+      background: #222;
+      color: #eee;
+      font-size: 0.9rem;
+    }
 
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      header {
+        height: 80vh;
+        height: 80svh;
+        padding: 0 10px;
+      }
+
+      header h1 { font-size: 2.2em; }
+
+      header p {
+        font-size: 1em;
+        padding: 8px 14px;
+      }
+
+      section { padding: 40px 15px; }
+
+      .gallery {
+        grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+        gap: 10px;
+      }
+
+      .gallery img {
+        height: 180px;
+        border-radius: 8px;
+      }
+
+      #detalles .features {
+        grid-template-columns: 1fr;
+        gap: 10px;
+      }
+
+      #detalles .features .columna p { font-size: 0.95em; }
+
+      #contacto { padding: 50px 15px; }
+      .contact-container { padding: 35px 20px; }
+
+      button[type="submit"] { width: 100%; }
+
+      iframe { height: 300px; }
+
+      .whatsapp-float {
+        width: 50px;
+        height: 50px;
+        bottom: 15px;
+        right: 15px;
+      }
+
+      .scroll-top {
+        width: 45px;
+        height: 45px;
+        bottom: 15px;
+        left: 15px;
+      }
+
+      .lightbox button { width: 42px; height: 42px; font-size: 1.3em; }
+      .lb-prev { left: 8px; }
+      .lb-next { right: 8px; }
+    }
+
+    @media (max-width: 480px) {
+      header h1 { font-size: 1.8em; }
+      header p { font-size: 0.9em; }
+      .gallery img { height: 150px; }
+    }
+
+    /* Respeta a quien pidió menos movimiento en su sistema */
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .js section {
+        opacity: 1;
+        transform: none;
+        transition: none;
+      }
+      * { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    }
   </style>
 </head>
 
@@ -382,25 +557,28 @@
   <!-- Galería -->
   <section id="galeria">
     <h2>Galería Condominio</h2>
-    <div class="gallery">
-      <img src="https://i.imgur.com/IpxsSDP.jpeg" alt="Vista panorámica del condominio">
-      <img src="https://i.imgur.com/DEtKlME.jpeg" alt="Vista panorámica del condominio">
-      <img src="https://i.imgur.com/VILhBio.jpeg"alt="Vista panorámica del condominio">
-      <img src="https://i.imgur.com/5peZtKK.jpeg" alt="Vista panorámica del condominio">
-      <img src="https://i.imgur.com/69j5vy2.jpeg" alt="Vista panorámica del condominio">
-      <img src="https://i.imgur.com/hlnK4OE.jpeg" alt="Vista panorámica del condominio">
-      <img src="https://i.imgur.com/nycZHef.jpeg" alt="Vista panorámica del condominio">
-      <img src="https://i.imgur.com/vYfNJ6r.jpeg" alt="Vista panorámica del condominio">
-      <img src="https://i.imgur.com/PL4JG5o.jpeg" alt="Vista panorámica del condominio">
-      <img src="https://i.imgur.com/qY9yFgQ.jpeg" alt="Vista panorámica del condominio">
-      <img src="https://i.imgur.com/uhb7wXS.jpeg" alt="Vista panorámica del condominio">
-      <img src="https://i.imgur.com/3kACGVH.jpeg" alt="Vista panorámica del condominio">
-      <img src="https://i.imgur.com/Q35RP7E.jpeg" alt="Vista panorámica del condominio">
-      <img src="https://i.imgur.com/p4sBrPJ.jpeg" alt="Vista panorámica del condominio">
-      <img src="https://i.imgur.com/UYKN81j.jpeg" alt="Vista panorámica del condominio">
-      <img src="https://i.imgur.com/a8hdPBX.jpeg" alt="Vista panorámica del condominio">
-      <img src="https://i.imgur.com/CAotQMO.jpeg" alt="Vista panorámica del condominio">
-      <img src="https://i.imgur.com/OxWG1Wc.jpeg" alt="Vista panorámica del condominio">
+    <p>Haz clic en cualquier fotografía para verla en tamaño completo.</p>
+    <div class="gallery" id="gallery">
+      <!-- El sufijo "l" pide a imgur la versión de 640 px (~55 KB en vez de ~750 KB).
+           data-full guarda la original, que solo se descarga al abrir el visor. -->
+      <button type="button" data-full="https://i.imgur.com/IpxsSDP.jpeg"><img src="https://i.imgur.com/IpxsSDPl.jpeg" loading="lazy" decoding="async" alt="Pórtico de acceso del condominio, de madera y piedra, sobre calle asfaltada"></button>
+      <button type="button" data-full="https://i.imgur.com/DEtKlME.jpeg"><img src="https://i.imgur.com/DEtKlMEl.jpeg" loading="lazy" decoding="async" alt="Portón de acceso controlado visto desde el interior del condominio"></button>
+      <button type="button" data-full="https://i.imgur.com/VILhBio.jpeg"><img src="https://i.imgur.com/VILhBiol.jpeg" loading="lazy" decoding="async" alt="Área verde con pinos, juegos infantiles y cancha de pádel al fondo"></button>
+      <button type="button" data-full="https://i.imgur.com/5peZtKK.jpeg"><img src="https://i.imgur.com/5peZtKKl.jpeg" loading="lazy" decoding="async" alt="Zona de juegos infantiles con columpios y resbalín sobre pasto"></button>
+      <button type="button" data-full="https://i.imgur.com/69j5vy2.jpeg"><img src="https://i.imgur.com/69j5vy2l.jpeg" loading="lazy" decoding="async" alt="Calle asfaltada del condominio junto a las áreas verdes comunes"></button>
+      <button type="button" data-full="https://i.imgur.com/hlnK4OE.jpeg"><img src="https://i.imgur.com/hlnK4OEl.jpeg" loading="lazy" decoding="async" alt="Acceso del condominio desde la calle interior, con jardines y veredas"></button>
+      <button type="button" data-full="https://i.imgur.com/nycZHef.jpeg"><img src="https://i.imgur.com/nycZHefl.jpeg" loading="lazy" decoding="async" alt="Cancha de pádel con iluminación y vista a los cerros"></button>
+      <button type="button" data-full="https://i.imgur.com/vYfNJ6r.jpeg"><img src="https://i.imgur.com/vYfNJ6rl.jpeg" loading="lazy" decoding="async" alt="Cancha de pádel cerrada con reja perimetral y cerros de fondo"></button>
+      <button type="button" data-full="https://i.imgur.com/PL4JG5o.jpeg"><img src="https://i.imgur.com/PL4JG5ol.jpeg" loading="lazy" decoding="async" alt="Quebrada con vegetación nativa en el entorno del condominio"></button>
+      <button type="button" data-full="https://i.imgur.com/qY9yFgQ.jpeg"><img src="https://i.imgur.com/qY9yFgQl.jpeg" loading="lazy" decoding="async" alt="Vista aérea del loteo con el litoral y el mar al fondo"></button>
+      <button type="button" data-full="https://i.imgur.com/uhb7wXS.jpeg"><img src="https://i.imgur.com/uhb7wXSl.jpeg" loading="lazy" decoding="async" alt="Vista aérea de las calles interiores y los terrenos del condominio"></button>
+      <button type="button" data-full="https://i.imgur.com/3kACGVH.jpeg"><img src="https://i.imgur.com/3kACGVHl.jpeg" loading="lazy" decoding="async" alt="Vista aérea del condominio rodeado de cerros y vegetación"></button>
+      <button type="button" data-full="https://i.imgur.com/Q35RP7E.jpeg"><img src="https://i.imgur.com/Q35RP7El.jpeg" loading="lazy" decoding="async" alt="Vista aérea de la entrada y el trazado de calles del condominio"></button>
+      <button type="button" data-full="https://i.imgur.com/p4sBrPJ.jpeg"><img src="https://i.imgur.com/p4sBrPJl.jpeg" loading="lazy" decoding="async" alt="Vista aérea del pórtico de acceso y el camino principal"></button>
+      <button type="button" data-full="https://i.imgur.com/UYKN81j.jpeg"><img src="https://i.imgur.com/UYKN81jl.jpeg" loading="lazy" decoding="async" alt="Vista aérea de las áreas verdes y la zona de juegos del condominio"></button>
+      <button type="button" data-full="https://i.imgur.com/a8hdPBX.jpeg"><img src="https://i.imgur.com/a8hdPBXl.jpeg" loading="lazy" decoding="async" alt="Vista aérea de las calles, la cancha de pádel y los terrenos disponibles"></button>
+      <button type="button" data-full="https://i.imgur.com/CAotQMO.jpeg"><img src="https://i.imgur.com/CAotQMOl.jpeg" loading="lazy" decoding="async" alt="Vista aérea de la cancha de pádel con el cerro de fondo"></button>
+      <button type="button" data-full="https://i.imgur.com/OxWG1Wc.jpeg"><img src="https://i.imgur.com/OxWG1Wcl.jpeg" loading="lazy" decoding="async" alt="Vista aérea de la cancha de pádel y las instalaciones del condominio"></button>
     </div>
   </section>
 
@@ -408,224 +586,155 @@
   <section id="ubicacion">
     <h2>Ubicación Exacta</h2>
     <p><strong>Monte Sagrado, Las Gaviotas, Concón, Región de Valparaíso, Chile</strong></p>
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1674.7851437977124!2d-71.46201532334089!3d-32.90952785977304!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9689c5004d7e41f7%3A0xc4a2510d574dc776!2sMauco%20Monte%20Sagrado!5e0!3m2!1ses-419!2scl!4v1761944505381!5m2!1ses-419!2scl" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1674.7851437977124!2d-71.46201532334089!3d-32.90952785977304!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9689c5004d7e41f7%3A0xc4a2510d574dc776!2sMauco%20Monte%20Sagrado!5e0!3m2!1ses-419!2scl!4v1761944505381!5m2!1ses-419!2scl" title="Mapa de ubicación del condominio Bosques de Monte Sagrado" allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
   </section>
 
-   <!-- Contacto -->
-<section id="contacto">
-  <div class="contact-container">
-    <h2>Contacto</h2>
-    <p class="intro">
-      ¿Tienes alguna consulta o quieres agendar una visita?<br>
-      Completa el formulario y te responderemos a la brevedad.
-    </p>
+  <!-- Contacto -->
+  <section id="contacto">
+    <div class="contact-container">
+      <h2>Contacto</h2>
+      <p class="intro">
+        ¿Tienes alguna consulta o quieres agendar una visita?<br>
+        Completa el formulario y te responderemos a la brevedad.
+      </p>
 
-    <form action="https://formsubmit.co/benjaminbasualtorodriguez@gmail.com" method="POST" class="contact-form">
-      <input type="hidden" name="_subject" value="Nuevo mensaje desde Bosques de Monte Sagrado">
-      <input type="hidden" name="_captcha" value="false">
-      <input type="hidden" name="_template" value="box">
-      <input type="hidden" name="_next" value="https://terreno-bosques-de-monte-sagrado.github.io/Confirmacion-de-envio/">
+      <form action="https://formsubmit.co/benjaminbasualtorodriguez@gmail.com" method="POST" class="contact-form">
+        <input type="hidden" name="_subject" value="Nuevo mensaje desde Bosques de Monte Sagrado">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="box">
+        <input type="hidden" name="_next" value="https://bvvnjmn.github.io/Confirmacion-de-envio/">
+        <input type="text" name="_honey" class="form-honey" tabindex="-1" autocomplete="off" aria-hidden="true">
 
-      <div class="form-group">
-        <label for="nombre">Nombre</label>
-        <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre completo">
+        <div class="form-group">
+          <label for="nombre">Nombre</label>
+          <input type="text" id="nombre" name="nombre" required autocomplete="name" placeholder="Tu nombre completo">
+        </div>
+
+        <div class="form-group">
+          <label for="email">Correo electrónico</label>
+          <input type="email" id="email" name="email" required autocomplete="email" placeholder="ejemplo@correo.com">
+        </div>
+
+        <div class="form-group">
+          <label for="mensaje">Mensaje</label>
+          <textarea id="mensaje" name="mensaje" rows="5" required placeholder="Escribe tu mensaje..."></textarea>
+        </div>
+
+        <button type="submit">Enviar mensaje</button>
+      </form>
+
+      <div class="contact-info">
+        <p><strong>Teléfono:</strong> <a href="tel:+56968516741">+56 9 6851 6741</a></p>
+        <p><strong>Email:</strong> <a href="mailto:benjaminbasualtorodriguez@gmail.com">benjaminbasualtorodriguez@gmail.com</a></p>
+        <p><strong>Ubicación:</strong> Condominio Bosques de Monte Sagrado, Quintero / Concón</p>
       </div>
-
-      <div class="form-group">
-        <label for="email">Correo electrónico</label>
-        <input type="email" id="email" name="email" required placeholder="ejemplo@correo.com">
-      </div>
-
-      <div class="form-group">
-        <label for="mensaje">Mensaje</label>
-        <textarea id="mensaje" name="mensaje" rows="5" required placeholder="Escribe tu mensaje..."></textarea>
-      </div>
-
-      <button type="submit">
-         Enviar mensaje
-      </button>
-    </form>
-
-    <div class="contact-info">
-      <p> <strong>Teléfono:</strong> +56 9 6851 6741</p>
-      <p> <strong>Email:</strong> benjaminbasualtorodriguez@gmail.com</p>
-      <p> <strong>Ubicación:</strong> Condominio Bosques de Monte Sagrado, Quintero / Concón</p>
     </div>
-  </div>
+  </section>
 
-</section>
-
-  </div>
-</section>
-
-<footer>
-  © 2025 Todos los derechos reservados.
-</footer>
-
-<style>
-  /* Contacto */
-  #contacto {
-    background: linear-gradient(180deg, #f1f1f1 0%, #e9e9e9 100%);
-    padding: 90px 20px;
-    animation: fadeIn 1.2s ease-in;
-  }
-
-  .contact-container {
-    max-width: 750px;
-    margin: auto;
-    background: #fff;
-    padding: 60px;
-    border-radius: 14px;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.08);
-  }
-
-  #contacto h2 {
-    text-align: left;
-    color: #333;
-    margin-bottom: 20px;
-    position: relative;
-    padding-bottom: 8px;
-  }
-
-  #contacto h2::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 60px;
-    height: 3px;
-    background-color: #444;
-    border-radius: 2px;
-  }
-
-  .contact-container .intro {
-    color: #555;
-    margin-bottom: 40px;
-    line-height: 1.6;
-    text-align: center;
-    font-size: 1.05em;
-  }
-
-  .contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 22px;
-  }
-
-  .form-group label {
-    font-weight: 500;
-    color: #333;
-    margin-bottom: 6px;
-    display: block;
-  }
-
-  .form-group input,
-  .form-group textarea {
-    width: 100%;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    padding: 12px;
-    font-size: 1em;
-    color: #333;
-    background: #fafafa;
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
-  }
-
-  .form-group input:focus,
-  .form-group textarea:focus {
-    border-color: #444;
-    box-shadow: 0 0 6px rgba(0,0,0,0.1);
-    outline: none;
-  }
-
-  button[type="submit"] {
-    background-color: #333;
-    color: #fff;
-    border: none;
-    padding: 15px 32px;
-    font-size: 1em;
-    border-radius: 10px;
-    cursor: pointer;
-    align-self: center;
-    transition: all 0.3s ease;
-    font-weight: 600;
-  }
-
-  button[type="submit"]:hover {
-    background-color: #111;
-    transform: scale(1.04);
-  }
-
-  .contact-info {
-    margin-top: 50px;
-    border-top: 1px solid #ddd;
-    padding-top: 25px;
-    color: #444;
-    font-size: 0.95em;
-    line-height: 1.7;
-  }
-
-  .contact-info p {
-    margin: 8px 0;
-    text-align: center;
-  }
-
-   footer { 
-    text-align: center; 
-    padding: 30px 10px; 
-    background: #222; 
-    color: #eee; 
-    font-size: 0.9rem; 
-  }
-
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  
-</style>
+  <footer>
+    © 2025 Todos los derechos reservados.
+  </footer>
 
   <!-- ===== BOTONES FLOTANTES ===== -->
-  <a href="https://wa.me/56968516741?text=Hola,%20vi%20el%20terreno%20en%20Bosques%20de%20Monte%20Sagrado%20y%20me%20gustaría%20más%20información." class="whatsapp-float" target="_blank" aria-label="WhatsApp">
-    <svg viewBox="0 0 32 32"><path d="M16.004 3C9.373 3 4 8.373 4 15.002c0 2.648.871 5.098 2.338 7.089L4.002 29l7.164-2.303a11.9 11.9 0 0 0 4.838 1.004C22.63 27.701 28 22.329 28 15.7 28 9.07 22.63 3.698 16.004 3zm0 22.705c-1.58 0-3.111-.39-4.479-1.142l-.321-.172-4.252 1.366 1.385-4.146-.209-.34a10.51 10.51 0 0 1-1.627-5.27c0-5.798 4.716-10.514 10.504-10.514S26.5 10.203 26.5 16c0 5.787-4.716 9.705-10.496 9.705zm5.974-7.253c-.328-.164-1.934-.953-2.233-1.062-.3-.11-.52-.164-.741.165-.219.327-.851 1.061-1.043 1.28-.192.22-.385.246-.713.082-.328-.164-1.383-.509-2.635-1.624-.974-.868-1.63-1.94-1.822-2.268-.192-.328-.021-.505.144-.669.148-.147.328-.383.492-.574.164-.192.218-.328.328-.547.11-.22.055-.41-.027-.575-.082-.164-.74-1.79-1.014-2.451-.266-.637-.535-.552-.74-.562-.192-.01-.411-.012-.63-.012a1.22 1.22 0 0 0-.875.41c-.3.328-1.148 1.12-1.148 2.73s1.175 3.169 1.338 3.388c.164.219 2.317 3.546 5.611 4.97.784.338 1.395.54 1.87.693.785.25 1.5.215 2.063.13.63-.094 1.934-.789 2.207-1.55.274-.76.274-1.412.192-1.55-.082-.137-.301-.219-.63-.383z"/></svg>
+  <a href="https://wa.me/56968516741?text=Hola,%20vi%20el%20terreno%20en%20Bosques%20de%20Monte%20Sagrado%20y%20me%20gustar%C3%ADa%20m%C3%A1s%20informaci%C3%B3n." class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Escribir por WhatsApp">
+    <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16.004 3C9.373 3 4 8.373 4 15.002c0 2.648.871 5.098 2.338 7.089L4.002 29l7.164-2.303a11.9 11.9 0 0 0 4.838 1.004C22.63 27.701 28 22.329 28 15.7 28 9.07 22.63 3.698 16.004 3zm0 22.705c-1.58 0-3.111-.39-4.479-1.142l-.321-.172-4.252 1.366 1.385-4.146-.209-.34a10.51 10.51 0 0 1-1.627-5.27c0-5.798 4.716-10.514 10.504-10.514S26.5 10.203 26.5 16c0 5.787-4.716 9.705-10.496 9.705zm5.974-7.253c-.328-.164-1.934-.953-2.233-1.062-.3-.11-.52-.164-.741.165-.219.327-.851 1.061-1.043 1.28-.192.22-.385.246-.713.082-.328-.164-1.383-.509-2.635-1.624-.974-.868-1.63-1.94-1.822-2.268-.192-.328-.021-.505.144-.669.148-.147.328-.383.492-.574.164-.192.218-.328.328-.547.11-.22.055-.41-.027-.575-.082-.164-.74-1.79-1.014-2.451-.266-.637-.535-.552-.74-.562-.192-.01-.411-.012-.63-.012a1.22 1.22 0 0 0-.875.41c-.3.328-1.148 1.12-1.148 2.73s1.175 3.169 1.338 3.388c.164.219 2.317 3.546 5.611 4.97.784.338 1.395.54 1.87.693.785.25 1.5.215 2.063.13.63-.094 1.934-.789 2.207-1.55.274-.76.274-1.412.192-1.55-.082-.137-.301-.219-.63-.383z"/></svg>
   </a>
 
-  <div class="scroll-top" id="scrollTopBtn" aria-label="Volver arriba">
-    <svg viewBox="0 0 24 24"><path d="M12 4l-8 8h5v8h6v-8h5z"/></svg>
+  <button type="button" class="scroll-top" id="scrollTopBtn" aria-label="Volver arriba">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4l-8 8h5v8h6v-8h5z"/></svg>
+  </button>
+
+  <!-- Visor de fotos -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Visor de fotografías">
+    <button type="button" class="lb-close" id="lbClose" aria-label="Cerrar">&times;</button>
+    <button type="button" class="lb-prev" id="lbPrev" aria-label="Foto anterior">&#8249;</button>
+    <img id="lbImg" src="" alt="">
+    <button type="button" class="lb-next" id="lbNext" aria-label="Foto siguiente">&#8250;</button>
+    <p class="lb-counter" id="lbCounter"></p>
   </div>
 
   <script>
-    // Mostrar botón volver arriba
+    // Botón "volver arriba"
     const scrollBtn = document.getElementById('scrollTopBtn');
     window.addEventListener('scroll', () => {
-      if (window.scrollY > 300) scrollBtn.classList.add('show');
-      else scrollBtn.classList.remove('show');
-    });
+      scrollBtn.classList.toggle('show', window.scrollY > 300);
+    }, { passive: true });
     scrollBtn.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
 
-    // Animaciones al hacer scroll
-    const sections = document.querySelectorAll("section");
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add("visible");
-      });
-    }, { threshold: 0.2 });
-    sections.forEach(section => observer.observe(section));
+    // Animaciones al hacer scroll. El umbral es bajo y el margen negativo
+    // asegura que las secciones más altas que la pantalla también se revelen.
+    const secciones = document.querySelectorAll('section');
+    const mostrarTodo = () => secciones.forEach(s => s.classList.add('visible'));
+
+    if (!('IntersectionObserver' in window)) {
+      mostrarTodo();
+    } else {
+      // El navegador siempre entrega una primera notificación por cada elemento
+      // observado. Si esa llamada nunca ocurre, el observer no está funcionando
+      // y hay que mostrar el contenido igual: vale más una página sin animación
+      // que una página en blanco.
+      let observerResponde = false;
+
+      const observer = new IntersectionObserver((entries, obs) => {
+        observerResponde = true;
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.05, rootMargin: '0px 0px -10% 0px' });
+
+      secciones.forEach(s => observer.observe(s));
+      setTimeout(() => { if (!observerResponde) mostrarTodo(); }, 2000);
+    }
+
+    // Visor de fotos
+    const triggers = Array.from(document.querySelectorAll('#gallery button'));
+    const lightbox = document.getElementById('lightbox');
+    const lbImg = document.getElementById('lbImg');
+    const lbCounter = document.getElementById('lbCounter');
+    let current = 0;
+    let lastFocused = null;
+
+    function show(i) {
+      current = (i + triggers.length) % triggers.length;
+      const trigger = triggers[current];
+      lbImg.src = trigger.dataset.full;
+      lbImg.alt = trigger.querySelector('img').alt;
+      lbCounter.textContent = (current + 1) + ' / ' + triggers.length;
+    }
+
+    function openLightbox(i) {
+      lastFocused = document.activeElement;
+      show(i);
+      lightbox.classList.add('open');
+      document.body.style.overflow = 'hidden';
+      document.getElementById('lbClose').focus();
+    }
+
+    function closeLightbox() {
+      lightbox.classList.remove('open');
+      lbImg.src = '';
+      document.body.style.overflow = '';
+      if (lastFocused) lastFocused.focus();
+    }
+
+    triggers.forEach((t, i) => t.addEventListener('click', () => openLightbox(i)));
+    document.getElementById('lbClose').addEventListener('click', closeLightbox);
+    document.getElementById('lbPrev').addEventListener('click', () => show(current - 1));
+    document.getElementById('lbNext').addEventListener('click', () => show(current + 1));
+    lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+
+    document.addEventListener('keydown', e => {
+      if (!lightbox.classList.contains('open')) return;
+      if (e.key === 'Escape') closeLightbox();
+      if (e.key === 'ArrowLeft') show(current - 1);
+      if (e.key === 'ArrowRight') show(current + 1);
+    });
   </script>
 
 </body>
-
 </html>
-
-
-
-
-
-
-
-
-
